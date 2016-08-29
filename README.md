@@ -640,4 +640,8 @@ update models/index.php if you rename or add any models (classes) and your views
 controllerFunctions - update $expectedModels
 make sure under view that $tracker = new is changed to current class/view name.
 
+all folders need a index.php files with just <?php ?> in it.
+
+
+
 
