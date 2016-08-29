@@ -633,4 +633,5 @@ Example of MySQL
         return $data;
     }
 ```
-
+Tracys Notes:
+If you change the name of the project remember to update the $viewsPath in the views.php file.
