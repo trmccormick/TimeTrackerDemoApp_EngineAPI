@@ -633,5 +633,7 @@ Example of MySQL
         return $data;
     }
 ```
-Tracys Notes:
+Tracy's Notes:
 If you change the name of the project remember to update the $viewsPath in the views.php file.
+update models/index.php if you rename or add any models (classes) and your views are setup to match.
+
