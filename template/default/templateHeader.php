@@ -23,6 +23,13 @@
 
 <header>
     <div class="container">
+
+        <div id="banner">
+          <div id="container">
+              <img src="/includes/images/media-archive-page-header.jpg" alt="Banner"/>
+          </div>
+        </div>
+
         <div class="siteTitle col-xs-12 col-sm-4">
             <h1> {local var="appName"} </h1>
             <blockquote>

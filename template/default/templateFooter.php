@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="container">
-        <p> Copyright <?php print Date('Y'); ?> - David Davis - Test Framework </p>
+        <p> Copyright <?php print Date('Y'); ?> - Tracy A. McCormick - mediaArchive </p>
     </div>
 </footer>
 
