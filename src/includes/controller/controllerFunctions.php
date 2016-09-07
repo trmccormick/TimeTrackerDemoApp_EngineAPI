@@ -11,6 +11,7 @@
         $expectedModels = array(
             'customers',
             'projects',
+            'mediaArchive',
             'timeTracker'
         );
 
