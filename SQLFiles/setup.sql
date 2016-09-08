@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `timeTracker`;
-CREATE DATABASE IF NOT EXISTS `timeTracker`;
-GRANT ALL PRIVILEGES ON `timeTracker`.* TO 'username'@'localhost';
-USE `timeTracker`;
+DROP DATABASE IF EXISTS `mediaArchive`;
+CREATE DATABASE IF NOT EXISTS `mediaArchive`;
+GRANT ALL PRIVILEGES ON `mediaArchive`.* TO 'username'@'localhost';
+USE `mediaArchive`;

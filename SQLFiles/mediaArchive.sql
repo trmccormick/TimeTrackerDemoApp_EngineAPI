@@ -26,7 +26,7 @@ CREATE TABLE `projects`(
     PRIMARY KEY(`projectID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Time Tracker
+-- timeTracking
 -- -------------------------------------------------
 DROP TABLE IF EXISTS `timeTracking`;
 CREATE TABLE `timeTracking`(
@@ -39,4 +39,22 @@ CREATE TABLE `timeTracking`(
     `completed` boolean NOT NULL,
     `descriptionOfWork` text NOT NULL,
     PRIMARY KEY(`timeID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- mediaArchive
+-- -------------------------------------------------
+DROP TABLE IF EXISTS `mediaArchive`;
+CREATE TABLE `mediaArchive`(
+    `archiveID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+    `filepath` varchar(100),
+    `filename` varchar(100) UNIQUE,
+    `version` varchar(100),
+    `title` varchar(100),
+    `album` varchar(100),
+    `author` varchar(100),
+    `track` int(4),
+    `year` int(5),
+    `length` varchar(100),
+    `lyric` text,
+    PRIMARY KEY(`archiveID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
