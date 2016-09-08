@@ -6,10 +6,13 @@ ENGINEAPIGIT="https://github.com/wvulibraries/engineAPI.git"
 ENGINEBRANCH="master"
 ENGINEAPIHOME="/home/engineAPI"
 
+GETID3GIT="https://github.com/JamesHeinrich/getID3.git"
+GETID3BRANCH="master"
+GETID3HOME="/home/getid3"
+
 SERVERURL="/home/mediaArchive"
 DOCUMENTROOT="public_html"
 SITEROOT="/home/mediaArchive/public_html/src"
-
 
 ## SERVER CONFIGURATION
 echo "install apache"
@@ -38,7 +41,6 @@ chkconfig httpd on
 echo "Moving HTTPD Conf Files"
 rm -f /etc/httpd/conf/httpd.conf
 ln -s /vagrant/serverConfiguration/httpd.conf /etc/httpd/conf/httpd.conf
-
 
 ## Framework Install
 echo "Getting Engine API"
@@ -74,6 +76,12 @@ echo "Changing permissions on the logs folder and moves the error and access log
 chmod a+rx /etc/httpd/logs -R
 sudo ln -s /etc/httpd/logs/error_log /vagrant/serverConfiguration/serverlogs/error_log
 sudo ln -s /etc/httpd/logs/access_log /vagrant/serverConfiguration/serverlogs/access_log
+
+## getID3 Install
+git clone -b $GETID3BRANCH $GETID3GIT
+
+echo "Linking to getID3 to the includes folder so we can use it"
+ln -s $GITDIR/getID3/getid3 $SITEROOT/includes/getid3
 
 # MySQL Setup
 echo "Settings up MySQL"
