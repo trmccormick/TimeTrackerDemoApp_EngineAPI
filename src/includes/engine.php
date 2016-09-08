@@ -1,6 +1,6 @@
 <?php
     // path to my engineAPI install
-    require_once '/home/timeTracker/phpincludes/engine/engineAPI/4.0/engine.php';
+    require_once '/home/mediaArchive/phpincludes/engine/engineAPI/4.0/engine.php';
     $engine = EngineAPI::singleton();
 
     // Setup Error Rorting
@@ -10,7 +10,7 @@
     $databaseOptions = array(
         'username' => 'username',
         'password' => 'password',
-        'dbName'   => 'timeTracker'
+        'dbName'   => 'mediaArchive'
     );
 
     $db  = db::create('mysql', $databaseOptions, 'appDB');

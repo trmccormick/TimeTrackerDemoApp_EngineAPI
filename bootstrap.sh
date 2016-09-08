@@ -6,9 +6,9 @@ ENGINEAPIGIT="https://github.com/wvulibraries/engineAPI.git"
 ENGINEBRANCH="master"
 ENGINEAPIHOME="/home/engineAPI"
 
-SERVERURL="/home/timeTracker"
+SERVERURL="/home/mediaArchive"
 DOCUMENTROOT="public_html"
-SITEROOT="/home/timeTracker/public_html/src"
+SITEROOT="/home/mediaArchive/public_html/src"
 
 
 ## SERVER CONFIGURATION
@@ -85,7 +85,25 @@ mysql -u root < /tmp/git/engineAPI/sql/vagrantSetup.sql
 mysql -u root EngineAPI < /tmp/git/engineAPI/sql/EngineAPI.sql
 
 mysql -u root < /vagrant/SQLFiles/setup.sql
-mysql -u root timeTracker < /vagrant/SQLFiles/timeTracker.sql
+mysql -u root mediaArchive < /vagrant/SQLFiles/mediaArchive.sql
+
+## Video Dependencies
+## FFMPEG COMPILE INSTALL
+echo "Installing FFMPEG Dependencies"
+yum -y install autoconf automake cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
+
+cd /tmp
+mkdir ffmpeg
+
+echo "Extracing FFMPEG"
+tar -xvf /vagrant/serverConfiguration/3rdParty/ffmpeg-2.6.8.tar.xz --directory /tmp/ffmpeg/
+cd /tmp/ffmpeg/ffmpeg-2.8.6-64bit-static
+cp ffmpeg /usr/local/bin/
+cp ffmpeg-10bit /usr/local/bin/
+cp ffprobe /usr/local/bin/
+cp ffserver /usr/local/bin/
+cp qt-faststart /usr/local/bin/
+echo "Completed install"
 
 ## restart apache
 echo "Finishing by restarting apache"
