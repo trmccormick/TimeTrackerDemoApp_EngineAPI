@@ -633,15 +633,4 @@ Example of MySQL
         return $data;
     }
 ```
-Tracy's Notes:
-If you change the name of the project remember to update the $viewsPath in the views.php file.
-update models/index.php if you rename or add any models (classes) and your views are setup to match.
-
-controllerFunctions - update $expectedModels
-make sure under view that $tracker = new is changed to current class/view name.
-
-all folders need a index.php files with just <?php ?> in it.
-
-
-
 
