@@ -3,5 +3,6 @@
     // include models
     require_once $root."/includes/models/customers.php";
     require_once $root."/includes/models/projects.php";
-    require_once $root."/includes/models/timeTracker.php";
+    require_once $root."/includes/models/mediaArchive.php";
+    require_once $root."/includes/models/timeTracker.php";    
 ?>

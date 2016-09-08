@@ -7,7 +7,7 @@
 
         public function __construct($template, $variables = array()){
             try {
-                $viewsPath = '/home/timeTracker/public_html/src/includes/views/';
+                $viewsPath = '/home/mediaArchive/public_html/src/includes/views/';
                 $file      = $viewsPath . strtolower($template) . '.php';
 
                 $this->path = $file;

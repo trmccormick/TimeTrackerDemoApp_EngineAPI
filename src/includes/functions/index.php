@@ -8,7 +8,7 @@
             // record Id Set to null
             $id = null;
             // create an array of valid actions
-            $validActions = array('create', 'add', 'read', 'view', 'update', 'edit', 'delete', 'confirmDelete');
+            $validActions = array('create', 'add', 'read', 'view', 'update', 'edit', 'delete', 'confirmDelete', 'play');
             // this is an $id only
             // not null and not an empty string
             if(!isnull($item) && !is_empty($item) && $validate->integer($item)){
@@ -58,6 +58,14 @@
                                 $pageData = $myClass->renderSingleRecord($id);
                             }
                         break;
+                        case 'play':
+                            // if isnull $id get all records
+                            if(isnull($id)){
+                                $pageData = $myClass->renderDataTable();
+                            }
+                            else{
+                                $pageData = $myClass->playAudioFile($id);
+                            }
                     }
                 }
             } else {

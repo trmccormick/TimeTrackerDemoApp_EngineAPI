@@ -29,7 +29,7 @@
                 }
 
                 if ($sqlResult->rowCount() < 1) {
-                   return "There are no customers in the database.";
+                    return array(); 
                 }
                 else {
                     $data = array();

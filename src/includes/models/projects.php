@@ -25,7 +25,7 @@ class Projects {
             // if return no results
             // else return the data
             if ($sqlResult->rowCount() < 1) {
-               return "There are no projects in the database.";
+                return array();
             }
             else {
                 $data = array();
