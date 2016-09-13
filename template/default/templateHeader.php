@@ -33,7 +33,7 @@
         <div class="siteTitle col-xs-12 col-sm-4">
             <h1> {local var="appName"} </h1>
             <blockquote>
-                Tracking your time, <br> enabling your productivity.
+                Tracking your media, <br> saving you time.
             </blockquote>
         </div>
         <nav class="actions col-xs-12 col-sm-8 null-padding">

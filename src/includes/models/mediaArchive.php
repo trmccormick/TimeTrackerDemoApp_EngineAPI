@@ -151,10 +151,10 @@
             }
         }
 
-        public function deleteFile($filename){
+        public function deleteFile($path, $filename){
           // Verify file still exists then delete
-          if (file_exists('./media/' . $filename)) {
-           unlink('./media/' . $filename);
+          if (file_exists('.' . $path . $filename)) {
+           unlink('.' . $path . $filename);
            return "File deleted";
           }
           else {
@@ -176,7 +176,7 @@
                 }
                 // Get Record to be deleted from database
                 $dataRecord = self::getRecords($id);
-                self::deleteFile($dataRecord[0]['filename']);
+                self::deleteFile($dataRecord[0]['filepath'], $dataRecord[0]['filename']);
 
                 // SQL Results
                 $sql = sprintf("DELETE FROM `mediaArchive` WHERE archiveID=%s LIMIT 1", $id);
@@ -344,19 +344,13 @@
                                         <td>%s</td>
                                         <td>%s</td>
                                         <td>%s</td>
-                                        <td>%s</td>
-                                        <td>%s</td>
-                                        <td>%s</td>
                                         <td><a href='mediaArchive/edit/%s'><span class='glyphicon glyphicon-edit'></span> </a></td>
                                         <td><a href='mediaArchive/confirmDelete/%s'> <span class='glyphicon glyphicon-trash'></span> </a></td>
                                         <td><a href='mediaArchive/play/%s'> <span class='glyphicon glyphicon-play-circle'></span> </a></td>
                                     </tr>",
+                        $data['filepath'],
                         $data['filename'],
-                        $data['title'],
-                        $data['album'],
-                        $data['author'],
-                        $data['track'],
-                        $data['year'],
+                        $data['filetype'],
                         $data['length'],
                         $data['archiveID'],
                         $data['archiveID'],
@@ -368,12 +362,9 @@
                                         <table class='table table-striped'>
                                             <thead>
                                                 <tr class='info'>
+                                                    <th> Filepath </th>
                                                     <th> Filename </th>
-                                                    <th> Title </th>
-                                                    <th> Album </th>
-                                                    <th> Author </th>
-                                                    <th> Track </th>
-                                                    <th> Year </th>
+                                                    <th> Filetype </th>
                                                     <th> Length </th>
                                                     <th> </th>
                                                     <th> </th>
@@ -423,25 +414,35 @@
           if(is_dir($path) && ($dh = opendir($path))){
             while (($file = readdir($dh)) !== false) {
               try {
-                if ($file == "index.php" || preg_match('/^\./', $file) || !preg_match('/\.mp3$/', $file)) continue;
+                //if ($file == "index.php" || preg_match('/^\./', $file) || !preg_match('/\.mp3$/', $file)) continue;
+                if ($file == "index.php" || preg_match('/^\./', $file)) continue;
 
+                // set full location of file with path
                 $FullFileName = $path . $file;
 
+                //check mime type
+                $filetype = file_mime_type($FullFileName);
+
+                //analyze file
                 $ThisFileInfo = $getID3->analyze($FullFileName);
 
+                //get id3 values from file
                 getid3_lib::CopyTagsToComments($ThisFileInfo);
 
+                // set id info from file
                 $title = $ThisFileInfo['comments_html']['title'][0];
                 $album = $ThisFileInfo['comments_html']['album'][0];
                 $author = $ThisFileInfo['comments_html']['artist'][0];
                 $track = $ThisFileInfo['comments_html']['track_number'][0];
                 $year = $ThisFileInfo['comments_html']['year'][0];
+
+                //get total length of playtime in minutes and seconds
                 $length = $ThisFileInfo['playtime_string'];
 
                 // SQL Results
 
-                $sql = "INSERT INTO `mediaArchive` (filepath, filename, title, album, author, track, length) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                $sqlResult = $db->query($sql, array(ltrim($path, '.'), $file, $title, $album, $author, $track, $length));
+                $sql = "INSERT INTO `mediaArchive` (filepath, filename, filetype, title, album, author, track, length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $sqlResult = $db->query($sql, array(ltrim($path, '.'), $file, $filetype, $title, $album, $author, $track, $length));
 
                 if (!$sqlResult) {
                   throw new Exception(__METHOD__.' Failed to insert mediaArchive record.');
@@ -519,7 +520,10 @@
               $output = "";
 
               $FFmpeg = new FFmpeg( '/usr/local/bin/ffmpeg' );
-              $FFmpeg->input( './media/' . $dataRecord[0]['filename']);
+              $FFmpeg->input( '.' . $dataRecord[0]['filepath'] . $dataRecord[0]['filename']);
+              $FFmpeg->output( 'new.mp4' , 'mp4' );
+              print($FFmpeg->command);
+              die();
 
               foreach($dataRecord as $data){
                 $output .= sprintf("<div class='archiveRecord'>
@@ -531,7 +535,7 @@
 
                                     <div class='videoControls'>
                                       <video controls>
-                                        <source src='/media/%s' type='video/mp4'>
+                                        <source src='%s%s' type='video/mp4'>
                                         Your browser does not support the <code>video</code> element.
                                        </video>
                                     </div>
@@ -539,6 +543,7 @@
                                 </div>",
                     $data['filename'],
                     $data['title'],
+                    $data['filepath'],
                     $data['filename'],
                     $data['archiveID']
                 );

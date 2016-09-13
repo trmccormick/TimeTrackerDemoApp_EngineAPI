@@ -48,6 +48,7 @@ CREATE TABLE `mediaArchive`(
     `archiveID` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
     `filepath` varchar(100),
     `filename` varchar(100) UNIQUE,
+    `filetype` varchar(100),
     `version` varchar(100),
     `title` varchar(100),
     `album` varchar(100),
