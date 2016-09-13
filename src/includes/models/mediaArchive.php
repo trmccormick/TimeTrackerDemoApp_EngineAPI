@@ -430,11 +430,41 @@
                 getid3_lib::CopyTagsToComments($ThisFileInfo);
 
                 // set id info from file
-                $title = $ThisFileInfo['comments_html']['title'][0];
-                $album = $ThisFileInfo['comments_html']['album'][0];
-                $author = $ThisFileInfo['comments_html']['artist'][0];
-                $track = $ThisFileInfo['comments_html']['track_number'][0];
-                $year = $ThisFileInfo['comments_html']['year'][0];
+
+                if (array_key_exists('title', $ThisFileInfo['comments_html'])) {
+                 $title = $ThisFileInfo['comments_html']['title'][0];
+                }
+                else {
+                 $title = NULL;
+                }
+
+                if (array_key_exists('album', $ThisFileInfo['comments_html'])) {
+                 $album = $ThisFileInfo['comments_html']['album'][0];
+                }
+                else {
+                 $album = NULL;
+                }
+
+                if (array_key_exists('artist', $ThisFileInfo['comments_html'])) {
+                 $author = $ThisFileInfo['comments_html']['artist'][0];
+                }
+                else {
+                 $author = NULL;
+                }
+
+                if (array_key_exists('track_number', $ThisFileInfo['comments_html'])) {
+                 $track = $ThisFileInfo['comments_html']['track_number'][0];
+                }
+                else {
+                 $track = NULL;
+                }
+
+                if (array_key_exists('year', $ThisFileInfo['comments_html'])) {
+                 $year = $ThisFileInfo['comments_html']['year'][0];
+                }
+                else {
+                 $year = NULL;
+                }
 
                 //get total length of playtime in minutes and seconds
                 $length = $ThisFileInfo['playtime_string'];
